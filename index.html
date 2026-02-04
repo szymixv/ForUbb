@@ -1,1 +1,128 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dla Ciebie ❤️</title>
+
+    <!-- PWA manifest -->
+    <link rel="manifest" href="manifest.json">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f7f2f9;
+            color: #333;
+        }
+
+        header {
+            text-align: center;
+            padding: 20px;
+            background: #ffb3c6;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-around;
+            background: #ffe0ea;
+            padding: 10px 0;
+            position: sticky;
+            top: 0;
+        }
+
+        nav button {
+            background: none;
+            border: none;
+            font-size: 16px;
+            padding: 8px;
+            cursor: pointer;
+        }
+
+        .page {
+            display: none;
+            padding: 20px;
+        }
+
+        .active {
+            display: block;
+        }
+
+        .gallery img {
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .song {
+            background: white;
+            padding: 12px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+
+<body>
+
+<header>Dla Ciebie ❤️</header>
+
+<nav>
+    <button onclick="showPage('home')">Home</button>
+    <button onclick="showPage('memories')">Memories</button>
+    <button onclick="showPage('songs')">Songs</button>
+    <button onclick="showPage('letters')">Letters</button>
+</nav>
+
+<!-- HOME -->
+<div id="home" class="page active">
+    <h2>Hej…</h2>
+    <p>Ta mała aplikacja jest tylko dla Ciebie.  
+    Chcę Ci pokazać kilka rzeczy, które wciąż są dla mnie ważne.</p>
+</div>
+
+<!-- MEMORIES -->
+<div id="memories" class="page">
+    <h2>Nasze wspomnienia</h2>
+    <div class="gallery">
+        <img src="img/photo1.jpg">
+        <img src="img/photo2.jpg">
+        <img src="img/photo3.jpg">
+    </div>
+</div>
+
+<!-- SONGS -->
+<div id="songs" class="page">
+    <h2>Nasze piosenki</h2>
+
+    <div class="song">
+        <a href="https://open.spotify.com/track/..." target="_blank">🎵 Piosenka 1</a>
+        <p>Dlaczego ważna: ...</p>
+    </div>
+
+    <div class="song">
+        <a href="https://open.spotify.com/track/..." target="_blank">🎵 Piosenka 2</a>
+        <p>Dlaczego ważna: ...</p>
+    </div>
+</div>
+
+<!-- LETTERS -->
+<div id="letters" class="page">
+    <h2>Mój list do Ciebie</h2>
+    <p>Tu możesz wpisać swoje przeprosiny, wspomnienia, uczucia…</p>
+</div>
+
+<script>
+    function showPage(id) {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+    }
+</script>
+
+</body>
+</html>
 
