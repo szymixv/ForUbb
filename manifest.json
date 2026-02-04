@@ -1,0 +1,9 @@
+{
+  "name": "Dla Ciebie",
+  "short_name": "Dla Ciebie",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ffb3c6",
+  "icons": []
+}
